@@ -3,7 +3,10 @@ import { useFrame } from "@react-three/fiber"
 import { useDrag } from "@use-gesture/react"
 import { useRef } from "react"
 import "../materials/BasicShaderMaterial"
-import { BasicShaderMaterialProps } from "../materials/BasicShaderMaterial"
+import {
+  AnimatedBasicShaderMaterial,
+  BasicShaderMaterialProps,
+} from "../materials/BasicShaderMaterial"
 
 const App = () => {
   const ref = useRef<BasicShaderMaterialProps>()
@@ -18,6 +21,7 @@ const App = () => {
 
   useFrame(({ clock }) => {
     const material = ref.current
+    // console.log(material) // always undefined, need to forwardRef
     if (!material) return
     if (material.uniforms?.u_time?.value) {
       material.uniforms.u_time.value = clock.getElapsedTime()
@@ -27,7 +31,7 @@ const App = () => {
   return (
     <mesh {...(bind() as any)}>
       <planeBufferGeometry />
-      <animatedBasicShaderMaterial ref={ref} uniforms-u_offset-value={offset} />
+      <AnimatedBasicShaderMaterial ref={ref} uniforms-u_offset-value={offset} />
     </mesh>
   )
 }

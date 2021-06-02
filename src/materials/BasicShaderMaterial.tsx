@@ -1,4 +1,4 @@
-import { animated, AnimatedProps } from "@react-spring/three"
+import { animated } from "@react-spring/three"
 import { shaderMaterial } from "@react-three/drei"
 import { extend, ShaderMaterialProps } from "@react-three/fiber"
 import * as THREE from "three"
@@ -32,16 +32,6 @@ declare global {
 }
 
 // forwardRef here? TS woes
-const AnimatedBasicShaderMaterial = animated(
+export const AnimatedBasicShaderMaterial = animated(
   (props: BasicShaderMaterialProps) => <basicShaderMaterial {...props} />
 )
-
-extend({ AnimatedBasicShaderMaterial })
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      animatedBasicShaderMaterial: AnimatedProps<BasicShaderMaterialProps>
-    }
-  }
-}
