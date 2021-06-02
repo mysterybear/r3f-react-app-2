@@ -3,13 +3,10 @@ import { useFrame } from "@react-three/fiber"
 import { useDrag } from "@use-gesture/react"
 import { useRef } from "react"
 import "../materials/BasicShaderMaterial"
-import {
-  AnimatedBasicShaderMaterial,
-  BasicShaderMaterialProps,
-} from "../materials/BasicShaderMaterial"
+import { AnimatedBasicShaderMaterial } from "../materials/BasicShaderMaterial"
 
 const App = () => {
-  const ref = useRef<BasicShaderMaterialProps>()
+  const ref = useRef<any>()
 
   const [{ offset }, spring] = useSpring(() => ({
     offset: [0, 0],
@@ -21,9 +18,8 @@ const App = () => {
 
   useFrame(({ clock }) => {
     const material = ref.current
-    // console.log(material) // always undefined, need to forwardRef
     if (!material) return
-    if (material.uniforms?.u_time?.value) {
+    if (material.uniforms?.u_time) {
       material.uniforms.u_time.value = clock.getElapsedTime()
     }
   })

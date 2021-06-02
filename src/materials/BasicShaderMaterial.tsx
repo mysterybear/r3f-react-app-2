@@ -1,11 +1,12 @@
 import { animated } from "@react-spring/three"
 import { shaderMaterial } from "@react-three/drei"
 import { extend, ShaderMaterialProps } from "@react-three/fiber"
+import { forwardRef } from "react"
 import * as THREE from "three"
 import fragmentShader from "../shaders/fragment.glsl"
 import vertexShader from "../shaders/vertex.glsl"
 
-const BasicShaderMaterial = shaderMaterial(
+export const BasicShaderMaterial = shaderMaterial(
   {
     u_time: 0,
     u_offset: new THREE.Vector2(),
@@ -31,7 +32,8 @@ declare global {
   }
 }
 
-// forwardRef here? TS woes
 export const AnimatedBasicShaderMaterial = animated(
-  (props: BasicShaderMaterialProps) => <basicShaderMaterial {...props} />
+  forwardRef<typeof BasicShaderMaterial, any>((props, ref) => (
+    <basicShaderMaterial ref={ref} {...props} />
+  ))
 )
