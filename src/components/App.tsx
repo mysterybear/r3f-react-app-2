@@ -3,10 +3,13 @@ import { useFrame } from "@react-three/fiber"
 import { useDrag } from "@use-gesture/react"
 import { useRef } from "react"
 import "../materials/BasicShaderMaterial"
-import { AnimatedBasicShaderMaterial } from "../materials/BasicShaderMaterial"
+import {
+  AnimatedBasicShaderMaterial,
+  BasicShaderMaterial,
+} from "../materials/BasicShaderMaterial"
 
 const App = () => {
-  const ref = useRef<any>()
+  const ref = useRef<typeof BasicShaderMaterial>()
 
   const [{ offset }, spring] = useSpring(() => ({
     offset: [0, 0],
