@@ -1,6 +1,6 @@
 import { animated } from "@react-spring/three"
 import { shaderMaterial } from "@react-three/drei"
-import { extend, ShaderMaterialProps } from "@react-three/fiber"
+import { extend } from "@react-three/fiber"
 import { forwardRef } from "react"
 import * as THREE from "three"
 import fragmentShader from "../shaders/fragment.glsl"
@@ -14,26 +14,23 @@ export const BasicShaderMaterial = shaderMaterial(
   vertexShader,
   fragmentShader
 )
-
-export type BasicShaderMaterialProps = Omit<ShaderMaterialProps, "uniforms"> & {
-  uniforms?: {
-    u_time?: { value: number }
-    u_offset?: { value: THREE.Vector2 }
-  }
-}
+export type BasicShaderMaterialImpl = {
+  u_time?: { value: number }
+  u_offset?: { value: THREE.Vector2 }
+} & JSX.IntrinsicElements["shaderMaterial"]
 
 extend({ BasicShaderMaterial })
 
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      basicShaderMaterial: BasicShaderMaterialProps
+      basicShaderMaterial: BasicShaderMaterialImpl
     }
   }
 }
 
 export const AnimatedBasicShaderMaterial = animated(
-  forwardRef<typeof BasicShaderMaterial, any>((props, ref) => (
+  forwardRef<BasicShaderMaterialImpl, any>((props, ref) => (
     <basicShaderMaterial ref={ref} {...props} />
   ))
 )

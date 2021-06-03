@@ -5,11 +5,11 @@ import { useRef } from "react"
 import "../materials/BasicShaderMaterial"
 import {
   AnimatedBasicShaderMaterial,
-  BasicShaderMaterial,
+  BasicShaderMaterialImpl,
 } from "../materials/BasicShaderMaterial"
 
 const App = () => {
-  const ref = useRef<typeof BasicShaderMaterial>()
+  const ref = useRef<BasicShaderMaterialImpl>(null)
 
   const [{ offset }, spring] = useSpring(() => ({
     offset: [0, 0],
