@@ -5,15 +5,17 @@ import { forwardRef } from "react"
 import * as THREE from "three"
 import fragmentShader from "../shaders/fragment.glsl"
 import vertexShader from "../shaders/vertex.glsl"
+import glsl from "glslify"
 
 export const BasicShaderMaterial = shaderMaterial(
   {
     u_time: 0,
     u_offset: new THREE.Vector2(),
   },
-  vertexShader,
-  fragmentShader
+  glsl(vertexShader),
+  glsl(fragmentShader)
 )
+
 export type BasicShaderMaterialImpl = {
   u_time?: { value: number }
   u_offset?: { value: THREE.Vector2 }
